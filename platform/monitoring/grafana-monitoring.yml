@@ -23,6 +23,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  syncOptions:
-    - CreateNamespace=true
-    - server-side-apply=true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
