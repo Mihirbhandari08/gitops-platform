@@ -11,7 +11,7 @@ spec:
       chart: kube-prometheus-stack
       helm:
         valueFiles:
-        - $values-platform/monitoring/values.yml
+        - $values-repo/platform/monitoring/values.yml
     - repoURL:  https://github.com/Mihirbhandari08/gitops-platform.git
       targetRevision: HEAD  
       ref : values-repo
