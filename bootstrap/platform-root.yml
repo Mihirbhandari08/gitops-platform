@@ -8,7 +8,7 @@ spec:
   source:
     repoURL:  https://github.com/Mihirbhandari08/gitops-platform.git
     targetRevision: HEAD
-    path:  platform
+    path:  platform/
     directory:
       recurse: true
   destination:
