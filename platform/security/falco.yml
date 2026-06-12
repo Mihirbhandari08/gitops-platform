@@ -10,9 +10,9 @@ spec:
     chart: falco
     targetRevision: 4.0.0 
     helm:
-      parameters:
-        - name: driver.kind
-        - value: modern_bpf
+      values:  |
+        driver:
+        kind:  modern_ebpf
   destination:
     server: https://kubernetes.default.svc
     namespace: falco-system   
