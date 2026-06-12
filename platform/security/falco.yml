@@ -10,7 +10,7 @@ spec:
     chart: falco
     targetRevision: 4.0.0 
   destination:
-    server: https://default.svc
+    server: https://kubernetes.default.svc
     namespace: falco-system   
   syncPolicy:
     automated:
