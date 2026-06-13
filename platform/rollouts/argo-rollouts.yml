@@ -1,4 +1,4 @@
-apiVersion:  argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argo-rollouts
@@ -10,14 +10,25 @@ spec:
     chart: argo-rollouts
     targetRevision: 2.41.0
     helm:
-      values:  |
+      values: |
+        # 1. Controller Limits (What you already had)
         resources:
           requests:
-            cpu:  "100m"
-            memory:  "128Mi"
+            cpu: "100m"
+            memory: "128Mi"
           limits: 
             cpu: "200m"
             memory: "256Mi"
+
+        # 2. Dashboard Limits (Required to clear the Kyverno webhook block)
+        dashboard:
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
   destination:
     server: https://kubernetes.default.svc
     namespace: argo-rollouts
@@ -27,3 +38,4 @@ spec:
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
+      - CreateNamespace=true  # Strongly recommended to prevent missing namespace errors
