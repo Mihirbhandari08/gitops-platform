@@ -11,7 +11,7 @@ spec:
     targetRevision: 2.41.0
     helm:
       values: |
-        # 1. Controller Limits (What you already had)
+        # 1. Main Rollouts Controller Container Limits
         resources:
           requests:
             cpu: "100m"
@@ -20,8 +20,9 @@ spec:
             cpu: "200m"
             memory: "256Mi"
 
-        # 2. Dashboard Limits (Required to clear the Kyverno webhook block)
+        # 2. Dashboard Deployment Containers Limits
         dashboard:
+          enabled: true
           resources:
             requests:
               cpu: "50m"
@@ -38,4 +39,4 @@ spec:
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
-      - CreateNamespace=true  # Strongly recommended to prevent missing namespace errors
+      - CreateNamespace=true
