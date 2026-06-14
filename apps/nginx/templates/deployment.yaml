@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Creates a unique name using the ArgoCD release name
+  name: {{ .Release.Name }}-deployment
+  labels:
+    app: {{ .Release.Name }}-app
+spec:
+  # Pulls the number of copies from your values file
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-app
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-app
+    spec:
+      containers:
+        - name: web-container
+          # Combines repository path and uses appVersion from Chart.yaml if tag is blank
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+          # Injects custom environment variables dynamically
+          env:
+            - name: LOG_LEVEL
+              value: {{ .Values.env.LOG_LEVEL | quote }}
+          # Handles resource constraints safely
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
