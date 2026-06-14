@@ -5,9 +5,9 @@ metadata:
   labels:
     app: {{ .Release.Name }}-app
 spec:
-  type: {{ .Values.service.port }}
+  type:  {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.type }}
+    - port:  {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
       name: http
