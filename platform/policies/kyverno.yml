@@ -19,3 +19,11 @@ spec:
     syncOptions:
       -  ServerSideApply=true
       - RespectIgnoreDifferences=true
+  ignoreDifferences:
+    - group: apiextensions.k8s.io      # 3. Ignores runtime schema variations on Kyverno CRDs
+      kind: CustomResourceDefinition
+      jsonPointers:
+        - /metadata/managedFields
+        - /metadata/annotations
+        - /metadata/labels
+        - /spec/conversion     
