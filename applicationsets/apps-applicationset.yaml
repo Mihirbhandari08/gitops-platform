@@ -1,14 +1,35 @@
 apiVersion: argoproj.io/v1alpha1
-kind:  Application
+kind: ApplicationSet
 metadata:
-  name: applicationsets-root
-  namespace:  argocd
-spec:
-  project: default
-  source:
-    repoURL:  https://github.com/Mihirbhandari08/gitops-platform.git
-    targetRevision:  HEAD
-    path: applicationsets
-  destination:
-      server: https://kubernetes.default.svc
-      namespace: argocd
+  name: gitops-platform-apps
+  namespace: argocd
+spec: 
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - app: nginx
+          - list:
+              elements:
+                - env: dev
+                - env: staging
+                - env: prod
+  template:
+    metadata:
+      name: '{{.app}}-{{.env}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Mihirbhandari08/gitops-platform.git
+        targetRevision: HEAD
+        path: 'apps/{{.app}}'
+        helm:  
+          valueFiles:
+            - values.yaml
+            - '../../environments/{{.env}}/{{.app}}-values.yaml'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.env}}'
