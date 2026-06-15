@@ -1,5 +1,5 @@
-apiVersion:  argoproj.io/v1alpha1
-kind:  Rollout
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: nginx-rollout
 spec:
@@ -10,24 +10,24 @@ spec:
   strategy:
     canary:
       steps:
-      - setWeight: 20
-      - pause: {duration: 5}
-      - setWeight: 40
-      - pause: {duration: 5}
-      - setWeight: 80
-      - pause: {duration: 5}
+        - setWeight: 20
+        - pause: {duration: 5}
+        - setWeight: 40
+        - pause: {duration: 5}
+        - setWeight: 80
+        - pause: {duration: 5}
   template:
     metadata:
       labels:
         app: nginx
     spec:
       containers:
-      - name: nginx
-        image: nginx:{{.Values.image.tag}}
-    resources:
-      requests:
-        cpu: {{ .Values.resources.requests.cpu }}
-        memory: {{ .Values.resources.requests.memory }}
-      limits:
-        cpu: {{ .Values.resources.limits.cpu }}
-        memory: {{ .Values.resources.limits.memory }}
+        - name: nginx
+          image: nginx:{{ .Values.image.tag }}
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu | quote }}
+              memory: {{ .Values.resources.requests.memory | quote }}
+            limits:
+              cpu: {{ .Values.resources.limits.cpu | quote }}
+              memory: {{ .Values.resources.limits.memory | quote }}
