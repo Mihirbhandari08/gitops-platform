@@ -29,7 +29,13 @@ spec:
         helm:  
           valueFiles:
             - values.yaml
-            - '../../../environments/{{.env}}/{{.env}}-values.yaml'  # ← Fixed path
+            - '../../environments/{{.env}}/{{.env}}-values.yaml'  # ← Fixed path
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{.env}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
