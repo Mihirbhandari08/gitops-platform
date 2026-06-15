@@ -30,7 +30,7 @@ spec:
           valueFiles:
             - values.yaml
             
-            - '../environments/{{.env}}/{{.env}}-values.yaml'
+            - '$values/environments/{{.env}}/{{.env}}-values.yaml'
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{.env}}'
