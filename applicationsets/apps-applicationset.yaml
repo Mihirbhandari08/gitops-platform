@@ -25,11 +25,11 @@ spec:
       source:
         repoURL: https://github.com/Mihirbhandari08/gitops-platform.git
         targetRevision: HEAD
-        path: 'apps/{{.app}}'
+        path: 'apps/nginx'
         helm:  
           valueFiles:
             - values.yaml
-            - '../../environments/{{.env}}/{{.app}}-values.yaml'
+            - '../../../environments/{{.env}}/{{.app}}-values.yaml'
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{.env}}'
