@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app: nginx
   strategy:
-    canary:
+    blueGreen:
       steps:
         - setWeight: 20
         - pause: {}
