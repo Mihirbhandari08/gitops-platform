@@ -29,7 +29,7 @@ spec:
         helm:  
           valueFiles:
             - values.yaml
-            - '../../environments/{{.env}}/{{.env}}-values.yaml'  # ← Fixed path
+            - '../../environments/{{.env}}/nginx-values.yaml'
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{.env}}'
