@@ -6,7 +6,7 @@ metadata:
   labels:
     grafana_dashboard: "1"
 data:
-  node-health.json: |-
+  cluster-health.json: |
         {
         "apiVersion": "dashboard.grafana.app/v2",
         "kind": "Dashboard",
