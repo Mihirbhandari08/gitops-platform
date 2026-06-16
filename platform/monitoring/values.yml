@@ -1,3 +1,10 @@
 grafana:
   adminUser:  "Mihir101"
   adminPassword: "Mihirub@123"
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard_cluster_health
+      namespace: monitoring
+      
+
